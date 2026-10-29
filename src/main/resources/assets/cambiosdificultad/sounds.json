@@ -1,0 +1,6 @@
+{
+  "ruleta": {
+    "subtitle": "cambiosdificultad.subtitle.ruleta",
+    "sounds": [ { "name": "cambiosdificultad:ruleta", "stream": true } ]
+  }
+}

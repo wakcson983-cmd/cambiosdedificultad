@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="cambiosdificultad"
+version="1.0.0"
+displayName="Cambios de Dificultad"
+description='''
+40 cambios de dificultad que se activan uno cada 20 minutos, con animación de ruleta roja,
+menú (G) con una página por cambio y mensaje en pantalla (U para ocultar).
+'''
+
+[[dependencies.cambiosdificultad]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cambiosdificultad]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,50 @@
+plugins {
+    id 'eclipse'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+
+version = '1.0.0'
+group = 'com.cambiosdificultad'
+base { archivesName = 'cambiosdificultad-forge-1.20.1' }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            mods { cambiosdificultad { source sourceSets.main } }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            args '--nogui'
+            mods { cambiosdificultad { source sourceSets.main } }
+        }
+    }
+}
+
+repositories { }
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
+}
+
+// Los 194 cuadros de la ruleta viajan dentro de extra/frames.zip (así se suben a GitHub en 1 solo archivo).
+def unpackFrames = tasks.register('unpackFrames', Copy) {
+    from zipTree('extra/frames.zip')
+    into layout.buildDirectory.dir('generated/frames')
+}
+tasks.named('processResources') {
+    dependsOn unpackFrames
+    from(layout.buildDirectory.dir('generated/frames'))
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+
+tasks.named('jar', Jar).configure {
+    manifest.attributes(['Specification-Title': 'cambiosdificultad', 'Implementation-Version': project.version])
+    finalizedBy 'reobfJar'
+}
